@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Http\Response;
 
 global $head, $style, $body, $end;
 
@@ -24,8 +24,42 @@ function tag($tag, $txt) {
 
 class HelloController extends Controller
 {
+    // public function index(Request $request,Response $response) {
     public function index() {
+        // $data = ['msg' => 'これはコントローラーから渡されたメッセージです'];
+        $data = ['one', 'two', 'three', 'four', 'five'];
+        return view('hello.index', ['data' =>$data]);
+        // $html = <<<EOF
+        // <html>
+        // <head>
+        //     <title>Hello/index</title>
+        //     <style>
+        //         body {font-size: 16pt; color: #999;}
+        //         h1 {font-size: 100pt; text-align: right; color: #eee; margin: -40px 0px -50px 0px;}
+        //     </style>
+        // </head>
+        // <body>
+        //     <h1>Hello/index</h1>
+        //     <p>this is index page</p>
+        //     <h3>Request</h3>
+        //     <pre>{$request}</pre>
+        //     <pre>{$request->path()}</pre>
+        //     <pre>{$request->fullurl()}</pre>
+        //     <pre>{$request->url()}</pre>
+        //     <h3>Response</h3>
+        //     <pre>{$response}</pre>
+        //     <a href="/hello/other">go to other page</a>
+        // </body>
+        // </html>
+        // EOF;
+        // return $html;
 
+    }
+
+    public function post(Request $request) {
+        $msg = $request->msg;
+        $data = ['msg' => 'こんにちは' . $msg . 'さん!'];
+        return view('hello.index', $data);
     }
 
     public function other() {
