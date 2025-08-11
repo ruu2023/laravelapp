@@ -33,7 +33,8 @@ class HelloController extends Controller
             ['name' => 'スズキたろう', 'mail' => 'taro@suzuki'],
             ['name' => 'たろう', 'mail' => 'taro@tarou'],
         ];
-        return view('hello.index', ['data' =>$data]);
+        // return view('hello.index', ['data' =>$data]);
+        return view('hello.index', ['message' => 'hello!']);
         // $html = <<<EOF
         // <html>
         // <head>

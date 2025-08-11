@@ -54,9 +54,11 @@
 
 @section('content')
     <p>ここが本文のコンテンツです。</p>
-    @each('hello.item', $data, 'item')
+    {{-- @each('hello.item', $data, 'item')
     <p>必要なだけ記述できます。</p>
-    @include('hello.message', ['msg_title' => 'OK', 'msg_content' => 'サブビューです。'])
+    @include('hello.message', ['msg_title' => 'OK', 'msg_content' => 'サブビューです。']) --}}
+    <p>Controller value<br>'message' = {{ $message }}</p>
+    <p>ViewComposer value<br> 'view_message' = {{ $view_message }}</p>
 @endsection
 
 @section('footer')
