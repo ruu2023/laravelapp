@@ -26,15 +26,16 @@ class HelloController extends Controller
 {
     // public function index(Request $request,Response $response) {
     public function index(Request $request ) {
-        $id = $request->id;
-        return view('hello.index', ['id' => $id]);
+        // $id = $request->id;
+        return view('hello.index', ['data' => $request->data]);
+        // return view('hello.index', ['id' => $id]);
         // $data = ['msg' => 'これはコントローラーから渡されたメッセージです'];
         // $data = ['one', 'two', 'three', 'four', 'five'];
-        $data = [
-            ['name' => '山田たろう', 'mail' => 'taro@yamada'],
-            ['name' => 'スズキたろう', 'mail' => 'taro@suzuki'],
-            ['name' => 'たろう', 'mail' => 'taro@tarou'],
-        ];
+        // $data = [
+        //     ['name' => '山田たろう', 'mail' => 'taro@yamada'],
+        //     ['name' => 'スズキたろう', 'mail' => 'taro@suzuki'],
+        //     ['name' => 'たろう', 'mail' => 'taro@tarou'],
+        // ];
         // return view('hello.index', ['data' =>$data]);
         // $html = <<<EOF
         // <html>

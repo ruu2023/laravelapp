@@ -54,9 +54,14 @@
 
 @section('content')
     <p>ここが本文のコンテンツです。</p>
-    <x-package-message :id="$id">
-        <p>※これはコンポーネントに追加したコンテンツです。</p>
-    </x-package-message>
+    <table>
+        @foreach ($data as $item)
+            <tr>
+                <th style="border: solid 1px #aaa; padding:5px 10px;">{{ $item['name'] }}</th>
+                <td style="border: solid 1px #aaa; padding:5px 10px;">{{ $item['mail'] }}</td>
+            </tr>
+        @endforeach
+    </table>
     <p>※上がコンポーネントの表示です。</p>
 @endsection
 
