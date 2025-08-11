@@ -53,9 +53,54 @@
 @endsection
 
 @section('content')
-    <p>ここが本文のコンテンツです。</p>
-    <p>これは、<middleware>google.com</middleware>へのリンクです。</p>
-    <p>これは、<middleware>yahoo.co.jp</middleware>へのリンクです。</p>
+    <p>{{ $msg }}</p>
+    {{-- @if (count($errors) > 0)
+        <div>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif --}}
+    <form aciton="/hello" method="post">
+        @csrf
+        <div>
+            <label style="dispaly: inline-block; width: 75px;" for="name">
+                name:
+            </label>
+            <input type="text" name="name" value="{{ old('name') }}">
+            @if ($errors->has('name'))
+                <p style="font-size: 10pt; margin-top: 0px;">
+                    ERROR: {{ $errors->first('name') }}
+                </p>
+            @endif
+        </div>
+        <div>
+            <label style="display: inline-block; width: 75px;" for="mail">
+                mail:
+            </label>
+            <input type="text" name="mail" value="{{ old('mail') }}">
+            @error('mail')
+                <p style="font-size: 10pt; margin-top: 0px;">
+                    ERROR: {{ $errors->first('mail') }}
+                </p>
+            @enderror
+        </div>
+        <div>
+            <label style="display: inline-block; width: 75px;" for="age">
+                age:
+            </label>
+            <input type="number" name="age" value="{{ old('age') }}">
+            @error('age')
+                <p style="font-size: 10pt; margin-top: 0px;">
+                    ERROR: {{ $errors->first('age') }}
+                </p>
+            @enderror
+            <input type="submit" value="send">
+        </div>
+
+    </form>
 @endsection
 
 @section('footer')
