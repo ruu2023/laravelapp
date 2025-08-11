@@ -54,11 +54,10 @@
 
 @section('content')
     <p>ここが本文のコンテンツです。</p>
-    {{-- @each('hello.item', $data, 'item')
-    <p>必要なだけ記述できます。</p>
-    @include('hello.message', ['msg_title' => 'OK', 'msg_content' => 'サブビューです。']) --}}
-    <p>Controller value<br>'message' = {{ $message }}</p>
-    <p>ViewComposer value<br> 'view_message' = {{ $view_message }}</p>
+    <x-package-message :id="$id">
+        <p>※これはコンポーネントに追加したコンテンツです。</p>
+    </x-package-message>
+    <p>※上がコンポーネントの表示です。</p>
 @endsection
 
 @section('footer')

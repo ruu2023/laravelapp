@@ -25,7 +25,9 @@ function tag($tag, $txt) {
 class HelloController extends Controller
 {
     // public function index(Request $request,Response $response) {
-    public function index() {
+    public function index(Request $request ) {
+        $id = $request->id;
+        return view('hello.index', ['id' => $id]);
         // $data = ['msg' => 'これはコントローラーから渡されたメッセージです'];
         // $data = ['one', 'two', 'three', 'four', 'five'];
         $data = [
@@ -34,7 +36,6 @@ class HelloController extends Controller
             ['name' => 'たろう', 'mail' => 'taro@tarou'],
         ];
         // return view('hello.index', ['data' =>$data]);
-        return view('hello.index', ['message' => 'hello!']);
         // $html = <<<EOF
         // <html>
         // <head>
