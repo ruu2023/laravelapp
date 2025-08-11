@@ -26,8 +26,9 @@ class HelloController extends Controller
 {
     // public function index(Request $request,Response $response) {
     public function index(Request $request ) {
+        return view('hello.index');
         // $id = $request->id;
-        return view('hello.index', ['data' => $request->data]);
+        // return view('hello.index', ['data' => $request->data]);
         // return view('hello.index', ['id' => $id]);
         // $data = ['msg' => 'これはコントローラーから渡されたメッセージです'];
         // $data = ['one', 'two', 'three', 'four', 'five'];
