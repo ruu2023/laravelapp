@@ -5,42 +5,108 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HelloRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
-global $head, $style, $body, $end;
-
-$head = '<html><head>';
-$style = <<<EOF
-<style>
-body {font-size: 16pt; color: #999;}
-h1 {font-size: 100pt; text-align: right; color: #eee; margin: -40px 0px -50px 0px;}
-</style>
-EOF;
-$body = '</head><body>';
-$end = '</body></html>';
-
-function tag($tag, $txt) {
-    return "<{$tag}>" . $txt . "</{$tag}>";
-}
-
-
+use Illuminate\Support\Facades\DB;
 class HelloController extends Controller
 {
     public function index(Request $request ) {
-        return view('hello.index', ['msg' => 'フォームを入力：']);
+
+        // if(isset($request->id)) {
+        //     $param = ['id' => $request->id];
+        //     $items = DB::select('select * from people where id = :id', $param);
+        // } else {
+        //     $items = DB::select('select * from people');
+        // }
+        $items = DB::table('people')
+            ->orderBy('age', 'asc')
+            ->get();
+        return view('hello.index', ['items' => $items]);
     }
 
     public function post(HelloRequest $request)
     {
-        return view('hello.index',['msg' => '正しく入力されました！']);
+        $items = DB::select('select * from people');
+        return view( 'hello.index', ['items' => $items]);
     }
 
-    public function other() {
-        global $head, $style, $body, $end;
-        $html = $head . tag('title', 'Hello/other')
-                . $style . $body . tag('h1', 'Other')
-                . tag('p', 'this is Other page')
-                . '<a href="/hello">go to index page</a>'
-                . $end;
-        return $html;
+    public function add(Request $request)
+    {
+        return view('hello.add');
+    }
+
+    public function create(Request $request)
+    {
+        $param = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'age' => $request->age,
+        ];
+
+        // DB::insert('insert into people (name, email, age) values (:name, :email, :age)', $param);
+        DB::table('people')->insert($param);
+        return redirect('/hello');
+    }
+
+    public function edit(Request $request)
+    {
+        // $param = ['id' => $request->id];
+        // $item = DB::select('select * from people where id = :id', $param);
+        $item = DB::table('people')
+            ->where('id', $request->id)
+            ->first();
+        return view('hello.edit', ['form'=> $item]);
+    }
+
+    public function update(Request $request)
+    {
+        $param = [
+            'id' => $request->id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'age' => $request->age
+        ];
+        // DB::update('update people set name = :name, email = :email, age = :age where id = :id', $param);
+        DB::table('people')
+            ->where('id', $request->id)
+            ->update($param);
+        return redirect('/hello');
+    }
+    public function del(Request $request)
+    {
+        // $param = ['id' => $request->id];
+        // $item = DB::select('select * from people where id = :id', $param);
+        $item = DB::table('people')
+            ->where('id', $request->id)
+            ->first();
+        return view('hello.del' , ['form' => $item]);
+    }
+
+    public function remove(Request $request)
+    {
+        // $param = ['id' => $request->id];
+        // DB::delete('delete from people where id = :id' , $param);
+        DB::table('people')
+            ->where('id', $request->id)
+            ->delete();
+        return redirect('/hello');
+    }
+
+    public function show(Request $request)
+    {
+        // $name = $request->name;
+        // $items = DB::table('people')
+        //     ->where('name','like', '%' . $name . '%')
+        //     ->orWhere('email', 'like', '%' . $name . '%')->get();
+
+        // $min = $request->min;
+        // $max = $request->max;
+        // $items = DB::table('people')
+        //     ->whereRaw('age >= ? and age <= ?' , [$min, $max])->get();
+        $page = $request->page;
+
+        $items = DB::table('people')
+            ->offset($page * 3)
+            ->limit(5)
+            ->get();
+        return view('hello.show', ['items' => $items]);
     }
 }

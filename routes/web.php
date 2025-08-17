@@ -13,4 +13,10 @@ Route::get('/', function () {
 // Route::get('hello',HelloController::class);
 Route::get('hello',[HelloController::class, 'index']);
 Route::post('hello',[HelloController::class, 'post']);
-Route::get('hello/other',[HelloController::class, 'other']);
+Route::get('hello/add',[HelloController::class, 'add']);
+Route::post('hello/add',[HelloController::class, 'create']);
+Route::get('hello/edit', [HelloController::class, 'edit']);
+ROute::post('hello/edit', [HelloController::class, 'update']);
+ROute::get('hello/del', [HelloController::class, 'del']);
+ROute::post('hello/del', [HelloController::class, 'remove']);
+ROute::get('hello/show', [HelloController::class, 'show']);

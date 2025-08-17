@@ -41,6 +41,33 @@
             border-bottom: solid 1px #ccc;
             color: #ccc;
         }
+
+        th {
+            background-color: #999;
+            color: #fff;
+            padding: 5px 10px;
+        }
+
+        td {
+            border: solid 1px #aaa;
+            color: #999;
+            padding: 5px 10px;
+        }
+
+        label {
+            margin: 0px;
+            font-size: 16px;
+        }
+
+        input {
+            padding: 5px 10px;
+            margin: 2px;
+        }
+
+        button {
+            padding: 5px 20px;
+            margin: 2px;
+        }
     </style>
 </head>
 
