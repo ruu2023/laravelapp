@@ -22,6 +22,8 @@ ROute::post('hello/edit', [HelloController::class, 'update']);
 ROute::get('hello/del', [HelloController::class, 'del']);
 ROute::post('hello/del', [HelloController::class, 'remove']);
 ROute::get('hello/show', [HelloController::class, 'show']);
+Route::get('hello/session', [HelloController::class, 'ses_get']);
+Route::post('hello/session', [HelloController::class, 'ses_put']);
 
 // PersonController
 Route::get('person', [PersonController::class, 'index']);
