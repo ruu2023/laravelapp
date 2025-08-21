@@ -1,4 +1,19 @@
 @extends('layouts.helloapp')
+<style>
+    nav {
+        margin: 10px 0px;
+    }
+
+    nav span {
+        margin: 5px;
+        font-size: 12pt;
+    }
+
+    nav a {
+        margin: 5px;
+        font-size: 12pt;
+    }
+</style>
 
 @section('title', 'Index')
 
@@ -16,13 +31,13 @@
         </tr>
         @foreach ($items as $item)
             <tr>
-                <td><a href="/hello/show?id={{ $item->id }}">{{ $item->name }}</a></td>
+                <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->age }}</td>
             </tr>
         @endforeach
     </table>
-
+    {{ $items->links() }}
 @endsection
 
 @section('footer')

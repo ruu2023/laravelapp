@@ -6,19 +6,12 @@ use App\Http\Requests\HelloRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use App\Models\Person;
 class HelloController extends Controller
 {
     public function index(Request $request ) {
-
-        // if(isset($request->id)) {
-        //     $param = ['id' => $request->id];
-        //     $items = DB::select('select * from people where id = :id', $param);
-        // } else {
-        //     $items = DB::select('select * from people');
-        // }
-        $items = DB::table('people')
-            ->orderBy('age', 'asc')
-            ->get();
+        // $items = DB::table('people')->orderBy('age', 'asc')->simplePaginate(5);
+        $items = Person::orderBy('age', 'asc')->simplePaginate(5);
         return view('hello.index', ['items' => $items]);
     }
 
