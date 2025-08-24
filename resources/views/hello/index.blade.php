@@ -44,21 +44,27 @@
 @endsection
 
 @section('content')
-    <table>
-        <tr>
-            <th><a href="/hello?sort=name">Name</a></th>
-            <th><a href="/hello?sort=email">Mail</a></th>
-            <th><a href="/hello?sort=age">Age</a></th>
-        </tr>
-        @foreach ($items as $item)
+    @auth
+        <a href="{{ url('/hello/logout') }}">ログアウト</a>
+        <table>
             <tr>
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->email }}</td>
-                <td>{{ $item->age }}</td>
+                <th><a href="/hello?sort=name">Name</a></th>
+                <th><a href="/hello?sort=email">Mail</a></th>
+                <th><a href="/hello?sort=age">Age</a></th>
             </tr>
-        @endforeach
-    </table>
-    {{ $items->appends(['sort' => $sort])->links() }}
+            @foreach ($items as $item)
+                <tr>
+                    <td>{{ $item->name }}</td>
+                    <td>{{ $item->email }}</td>
+                    <td>{{ $item->age }}</td>
+                </tr>
+            @endforeach
+        </table>
+        {{ $items->appends(['sort' => $sort])->links() }}
+    @else
+        <a href="{{ url('/hello/login') }}">ログイン</a>
+        <a href="{{ url('/hello/register') }}">登録</a>
+    @endauth
 @endsection
 
 @section('footer')

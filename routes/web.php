@@ -25,6 +25,16 @@ ROute::get('hello/show', [HelloController::class, 'show']);
 Route::get('hello/session', [HelloController::class, 'ses_get']);
 Route::post('hello/session', [HelloController::class, 'ses_put']);
 
+//login
+Route::get('hello/logout', [HelloController::class, 'logout']);
+Route::get('hello/login', [HelloController::class, 'login']);
+Route::post('hello/loginPost', [HelloController::class, 'loginPost']);
+// GET: 登録ページを表示する
+Route::get('/hello/register', [HelloController::class, 'register'])->name('register');
+
+// POST: 登録フォームのデータを受け取り、処理する
+Route::post('/hello/registerPost', [HelloController::class, 'registerPost']);
+
 // PersonController
 Route::get('person', [PersonController::class, 'index']);
 Route::get('person', [PersonController::class, 'index']);

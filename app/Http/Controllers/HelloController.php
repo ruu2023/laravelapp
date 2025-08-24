@@ -7,8 +7,59 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Models\Person;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
 class HelloController extends Controller
 {
+    public function register()
+    {
+        return view('hello.register');
+    }
+
+    /**
+     * ユーザー登録処理
+     */
+    public function registerPost(Request $request)
+    {
+        // ① バリデーション (入力値のチェック)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users', // emailはユニーク(一意)であること
+            'password' => 'required|string|min:8|confirmed', // 8文字以上、確認用入力と一致すること
+        ]);
+
+        // ② ユーザーを作成
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password), // パスワードは必ずハッシュ化する
+        ]);
+
+        // ③ 登録後に自動でログインさせる
+        Auth::login($user);
+
+        // ④ 登録完了後にリダイレクト
+        return redirect('/hello'); // 例えばメインページにリダイレクト
+    }
+    public function login() {
+        return view('hello.login');
+    }
+    public function logout() {
+        Auth::logout();
+        return redirect('/hello');
+    }
+    public function loginPost(Request $request)
+    {
+        $email = $request->email;
+        $password = $request->password;
+        if(Auth::attempt(['email'=>$email, 'password'=>$password], false))
+        {
+            return redirect('/hello');
+        }
+        return redirect('/hello/login');
+    }
     public function index(Request $request ) {
         $sort = $request->sort;
         $items = Person::orderBy($sort, 'asc')->paginate(5);
