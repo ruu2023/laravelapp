@@ -61,7 +61,7 @@ class HelloController extends Controller
         return redirect('/hello/login');
     }
     public function index(Request $request ) {
-        $sort = $request->sort;
+        $sort = $request->sort ?? 'id';
         $items = Person::orderBy($sort, 'asc')->paginate(5);
         $params = ['items' => $items, 'sort' => $sort];
         return view('hello.index', $params);
