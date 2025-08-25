@@ -1,0 +1,8 @@
+:8080 {
+	# ドキュメントルートをLaravelのpublicディレクトリに設定
+	root * /app/public
+	# レスポンスを圧縮して転送を高速化
+	encode zstd gzip
+	# PHPリクエストを処理するための設定 (Laravelのindex.phpへの書き換えも自動で行う)
+	php_server
+}
